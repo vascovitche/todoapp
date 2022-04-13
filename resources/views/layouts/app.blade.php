@@ -10,7 +10,7 @@
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <h1>@yield('title')</h1>
+        <h1 class="mb-3">@yield('title')</h1>
         <main>
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>

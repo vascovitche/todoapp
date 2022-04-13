@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <a class="btn btn-primary mt-3 mb-3" role="button" href="{{ route('tasks.create') }}">Add New Task</a>
+    <a class="btn btn-primary mb-3" role="button" href="{{ route('tasks.create') }}">Add New Task</a>
 
     <table class="table table-striped table-hover">
         <thead>

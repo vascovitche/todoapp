@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
@@ -38,7 +40,7 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreTaskRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StoreTaskRequest $request)
     {
@@ -50,22 +52,23 @@ class TaskController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function edit(Task $task)
     {
-        //
+        $users = User::get('name');
+        return view('tasks.edit', compact('task'), compact('users'));
     }
 
     /**
@@ -73,21 +76,23 @@ class TaskController extends Controller
      *
      * @param  \App\Http\Requests\UpdateTaskRequest  $request
      * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $task->update($request->only(['title', 'description', 'doer']));
+        return redirect()->route('tasks.index')->withSuccess('Updated task '.$request->title);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->route('tasks.index')->withDanger('Deleted task '.$task->title);
     }
 }
