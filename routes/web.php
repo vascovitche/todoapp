@@ -15,22 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/tasks/', [TaskController::class, 'index']);
-Route::get('/task/{taskId}/', [TaskController::class, 'getTask']);
-Route::post('/tasks/create_task/', [TaskController::class, 'createNewTask']);
-Route::put('/tasks/update_task/', [TaskController::class, 'updateTask']);
-Route::delete('/tasks/delete_task/', [TaskController::class, 'deleteTask']);
-Route::get('/tasks/search_by_status/', [TaskController::class, 'searchTaskByStatus']);
-Route::get('/tasks/search_by_doer/', [TaskController::class, 'searchTaskByDoer']);
-
-Route::get('/users/', [UserController::class, 'index']);
-Route::get('/user/{userId}/', [UserController::class, 'getUser']);
-Route::post('/users/create_user/', [UserController::class, 'createNewUser']);
-Route::put('/users/update_user/', [UserController::class, 'updateUser']);
-Route::delete('/user/delete_user/', [UserController::class, 'deleteUser']);
+Route::redirect('/', 'tasks');
+Route::resource('tasks', TaskController::class);
 
 
