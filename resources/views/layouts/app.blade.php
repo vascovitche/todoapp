@@ -9,9 +9,15 @@
     <title>@yield('title')</title>
 </head>
 <body class="bg-light">
-    <div class="container">
+    <div class="container mt-5">
         <h1>@yield('title')</h1>
         <main>
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endisset
+            @if(session('danger'))
+                <div class="alert alert-danger">{{ session('danger') }}</div>
+            @endisset
             @yield('content')
         </main>
     </div>
