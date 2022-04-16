@@ -23,7 +23,8 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::paginate(12);
-        return view('tasks.index', compact('tasks'));
+        $users = User::get('name');
+        return view('tasks.index', compact('tasks'), compact('users'));
     }
 
     /**
@@ -42,6 +43,19 @@ class TaskController extends Controller
         $search = $request->search;
         $tasks = Task::where('title', 'like', "%{$search}%")->paginate(12);
         return view('tasks.index', compact('tasks'));
+    }
+
+    public function sort(Request $request)
+    {
+        $doer = $request->doer;
+        $users = User::get('name');
+        if ($doer == 'all') {
+            return redirect()->route('tasks.index');
+        } else {
+            $tasks = Task::where('doer', 'like', $doer)->paginate(12);
+        }
+
+        return view('tasks.index', compact('tasks'), compact('users'));
     }
 
     /**

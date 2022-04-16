@@ -4,8 +4,19 @@
     @section('action')
         <div class="container">
             <div class="row">
-                <div class="col">
-
+                <div class="col-4">
+                    <form method="GET" action="{{ route('tasks.sort') }}">
+                        <div class="input-group mb-3">
+                            <select name="doer" class="form-select">
+                                <option selected>{{ request()->doer ? request()->doer : 'all' }}</option>
+                                <option value="all">all</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-outline-secondary">By doer</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-4">
                     <form method="GET" action="{{ route('tasks.search') }}">
@@ -81,6 +92,6 @@
         </tbody>
     </table>
 
-    {{ $tasks->appends(['search' => request()->search])->links() }}
+    {{ $tasks->appends(['search' => request()->search, 'doer' => request()->doer])->links() }}
 
 @endsection
