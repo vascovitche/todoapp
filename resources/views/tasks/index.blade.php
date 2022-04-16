@@ -34,6 +34,7 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Title</th>
+            <th scope="col">Status</th>
             <th scope="col">Doer</th>
             <th scope="col">Created</th>
             <th scope="col">Updated</th>
@@ -47,6 +48,22 @@
             <td>
                 <a href="{{ route('tasks.show', $task) }}">
                 {{ $task->title }}
+            </td>
+            <td>
+                @switch($task->status)
+                    @case(1)
+                        <div class="bg-dark d-inline p-1 text-white rounded-2">NEW</div>
+                        @break
+                    @case(2)
+                        <div class="bg-info d-inline p-1 text-white rounded-2 bg-opacity-75">IN WORK</div>
+                        @break
+                    @case(3)
+                        <div class="bg-secondary d-inline p-1 text-white rounded-2 bg-opacity-75">CHECK</div>
+                        @break
+                    @case(4)
+                        <div class="bg-success d-inline p-1 text-white rounded-2 bg-opacity-75">DONE</div>
+                        @break
+                @endswitch
             </td>
             <td>{{ $task->doer }}</td>
             <td>{{ $task->created_at->format('d.m.y H:i') }}</td>
