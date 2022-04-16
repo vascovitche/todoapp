@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TaskController extends Controller
@@ -21,7 +22,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(10);
+        $tasks = Task::paginate(12);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -36,10 +37,17 @@ class TaskController extends Controller
         return view('tasks.create', compact('users'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $tasks = Task::where('title', 'like', "%{$search}%")->paginate(12);
+        return view('tasks.index', compact('tasks'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTaskRequest  $request
+     * @param StoreTaskRequest $request
      * @return RedirectResponse
      */
     public function store(StoreTaskRequest $request)

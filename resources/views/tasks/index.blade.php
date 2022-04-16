@@ -1,11 +1,34 @@
 @extends('layouts.app')
 
 @section('title', 'Tasks')
+    @section('action')
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col-4">
+                    <form method="GET" action="{{ route('tasks.search') }}">
+                        <div class="input-group mb-3">
+                            <input
+                                type="text"
+                                name="search"
+                                value="{{ request()->search }}"
+                                placeholder="Type something..."
+                                class="form-control"
+                            >
+                            <button type="submit" class="btn btn-outline-secondary">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-primary mb-3" role="button" href="{{ route('tasks.create') }}">Add Task</a>
+                </div>
+            </div>
+        </div>
+    @endsection
 
 @section('content')
-
-    <a class="btn btn-primary mb-3" role="button" href="{{ route('tasks.create') }}">Add New Task</a>
-
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -41,6 +64,6 @@
         </tbody>
     </table>
 
-    {{ $tasks->links() }}
+    {{ $tasks->appends(['search' => request()->search])->links() }}
 
 @endsection

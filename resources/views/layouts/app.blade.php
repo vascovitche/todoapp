@@ -10,8 +10,16 @@
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <h1 class="mb-3">@yield('title')</h1>
-        <main>
+        <header class="mb-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4"><h1>@yield('title')</h1></div>
+                    <div class="col-8 float-end text-end">@yield('action')</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="mt-5">
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endisset

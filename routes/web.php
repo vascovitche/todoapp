@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'tasks');
 Route::resource('tasks', TaskController::class);
+Route::get('/search', [TaskController::class, 'search'])->name('tasks.search');
 
 
