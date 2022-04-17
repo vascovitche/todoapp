@@ -41,8 +41,9 @@ class TaskController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
+        $users = User::get('name');
         $tasks = Task::where('title', 'like', "%{$search}%")->paginate(12);
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'), compact('users'));
     }
 
     public function sort(Request $request)
